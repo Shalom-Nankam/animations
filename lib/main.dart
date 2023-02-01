@@ -29,6 +29,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _animation = Tween<double>(begin: 0.0, end: 2 * pi).animate(_controller);
+    _controller.repeat();
     super.initState();
   }
 
@@ -40,10 +41,30 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Hello World'),
-      ),
+          child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) => Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.identity()..rotateY(_animation.value),
+          child: Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ]),
+          ),
+        ),
+      )),
     );
   }
 }
