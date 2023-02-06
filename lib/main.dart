@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:animations/animations/chained_animations.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -42,29 +43,47 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) => Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.identity()..rotateY(_animation.value),
-          child: Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ]),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 30,
           ),
-        ),
-      )),
+          SizedBox(
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()..rotateY(_animation.value),
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ]),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          OutlinedButton(
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ChainedAnimationsPage())),
+            child: const Text('Next Page'),
+          )
+        ],
+      ),
     );
   }
 }
