@@ -9,6 +9,10 @@ class ChainedAnimationsPage extends StatefulWidget {
   State<ChainedAnimationsPage> createState() => _ChainedAnimationsPageState();
 }
 
+extension on VoidCallback {
+  Future<void> delayed(Duration duration) => Future.delayed(duration, this);
+}
+
 class _ChainedAnimationsPageState extends State<ChainedAnimationsPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _rotateCounterClockwiseController;
@@ -36,11 +40,9 @@ class _ChainedAnimationsPageState extends State<ChainedAnimationsPage>
   final double middle = 75.0;
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1), () {
-      _rotateCounterClockwiseController
-        ..reset()
-        ..forward();
-    });
+    _rotateCounterClockwiseController
+      ..reset()
+      ..forward.delayed(const Duration(seconds: 1));
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
