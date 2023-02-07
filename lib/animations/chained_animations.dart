@@ -51,6 +51,13 @@ class _ChainedAnimationsPageState extends State<ChainedAnimationsPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: Colors.brown),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              OutlinedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Previous Page'),
               )
             ],
           ),
