@@ -88,3 +88,16 @@ extension ToPath on CircleSides {
     return path;
   }
 }
+
+class HalfCircleClipper extends CustomClipper<Path> {
+  final CircleSides side;
+
+  HalfCircleClipper(this.side);
+  @override
+  Path getClip(Size size) => side.toPath(size);
+
+  ///Observes changes happening on the parent widget and tells
+  /// the parent if to redraw the child or not
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
+}
