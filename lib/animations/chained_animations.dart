@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ChainedAnimationsPage extends StatefulWidget {
@@ -7,10 +9,38 @@ class ChainedAnimationsPage extends StatefulWidget {
   State<ChainedAnimationsPage> createState() => _ChainedAnimationsPageState();
 }
 
-class _ChainedAnimationsPageState extends State<ChainedAnimationsPage> {
+class _ChainedAnimationsPageState extends State<ChainedAnimationsPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _rotateCounterClockwiseController;
+  late Animation<double> _rotateCounterClockwiseAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _rotateCounterClockwiseController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+
+    _rotateCounterClockwiseAnimation = Tween(begin: 0.0, end: -pi / 2).animate(
+        CurvedAnimation(
+            parent: _rotateCounterClockwiseController,
+            curve: Curves.bounceOut));
+  }
+
+  @override
+  void dispose() {
+    _rotateCounterClockwiseController.dispose();
+    super.dispose();
+  }
+
   final double middle = 75.0;
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 1), () {
+      _rotateCounterClockwiseController
+        ..reset()
+        ..forward();
+    });
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -21,27 +51,36 @@ class _ChainedAnimationsPageState extends State<ChainedAnimationsPage> {
               const SizedBox(
                 height: 30,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipPath(
-                    clipper: HalfCircleClipper(CircleSides.left),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      color: Colors.purple,
-                    ),
-                  ),
-                  ClipPath(
-                    clipper: HalfCircleClipper(CircleSides.right),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      color: Colors.blue,
-                    ),
-                  )
-                ],
-              ),
+              AnimatedBuilder(
+                  animation: _rotateCounterClockwiseController,
+                  builder: (context, child) {
+                    return Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.identity()
+                        ..rotateZ(_rotateCounterClockwiseAnimation.value),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipPath(
+                            clipper: HalfCircleClipper(CircleSides.left),
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              color: Colors.purple,
+                            ),
+                          ),
+                          ClipPath(
+                            clipper: HalfCircleClipper(CircleSides.right),
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              color: Colors.blue,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
               const SizedBox(
                 height: 30,
               ),
