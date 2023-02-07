@@ -24,15 +24,21 @@ class _ChainedAnimationsPageState extends State<ChainedAnimationsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 150,
-                    width: 150,
-                    color: Colors.purple,
+                  ClipPath(
+                    clipper: HalfCircleClipper(CircleSides.left),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      color: Colors.purple,
+                    ),
                   ),
-                  Container(
-                    height: 150,
-                    width: 150,
-                    color: Colors.blue,
+                  ClipPath(
+                    clipper: HalfCircleClipper(CircleSides.right),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      color: Colors.blue,
+                    ),
                   )
                 ],
               ),

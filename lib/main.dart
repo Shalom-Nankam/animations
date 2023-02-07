@@ -53,26 +53,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               const SizedBox(
                 height: 30,
               ),
-              SizedBox(
-                child: AnimatedBuilder(
-                  animation: _animation,
-                  builder: (context, child) => Transform(
-                    alignment: Alignment.center,
-                    transform: Matrix4.identity()..rotateY(_animation.value),
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ]),
+              Center(
+                child: SizedBox(
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (context, child) => Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.identity()..rotateY(_animation.value),
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ]),
+                      ),
                     ),
                   ),
                 ),
