@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:animations/animations/chained_animations.dart';
+import 'package:animations/views/chained_animations.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
