@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 class StackedAnimation extends StatefulWidget {
   const StackedAnimation({super.key});
@@ -67,28 +68,75 @@ class _StackedAnimationState extends State<StackedAnimation>
               const SizedBox(
                 height: 100,
               ),
-              AnimatedBuilder(
-                animation:
-                    Listenable.merge([xController, yController, zController]),
-                builder: (context, child) {
-                  return Transform(
-                    transform: Matrix4.identity()
-                      ..rotateX(animator.evaluate(xController))
-                      ..rotateY(animator.evaluate(yController))
-                      ..rotateZ(animator.evaluate(zController)),
-                    alignment: Alignment.center,
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 100,
-                          width: 100,
-                          color: Colors.red,
-                        )
-                      ],
-                    ),
-                  );
-                },
-              )
+              Center(
+                child: AnimatedBuilder(
+                  animation:
+                      Listenable.merge([xController, yController, zController]),
+                  builder: (context, child) {
+                    return Transform(
+                      transform: Matrix4.identity()
+                        ..rotateX(animator.evaluate(xController))
+                        ..rotateY(animator.evaluate(yController))
+                        ..rotateZ(animator.evaluate(zController)),
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: [
+                          Transform(
+                            transform: Matrix4.identity()
+                              ..translate(Vector3(0, 0, -100)),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xffde03fc),
+                            ),
+                          ),
+                          Container(
+                            height: 100,
+                            width: 100,
+                            color: const Color(0xfffc0f03),
+                          ),
+                          Transform(
+                            alignment: Alignment.centerLeft,
+                            transform: Matrix4.identity()..rotateY((pi / 2)),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xff0bfc03),
+                            ),
+                          ),
+                          Transform(
+                            alignment: Alignment.centerRight,
+                            transform: Matrix4.identity()..rotateY(-(pi / 2)),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xff031cfc),
+                            ),
+                          ),
+                          Transform(
+                            alignment: Alignment.topCenter,
+                            transform: Matrix4.identity()..rotateX(-(pi / 2)),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xfffcf803),
+                            ),
+                          ),
+                          Transform(
+                            alignment: Alignment.bottomCenter,
+                            transform: Matrix4.identity()..rotateX((pi / 2)),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              color: const Color(0xff03fcd7),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
