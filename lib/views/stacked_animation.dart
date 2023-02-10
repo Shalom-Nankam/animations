@@ -29,7 +29,7 @@ class _StackedAnimationState extends State<StackedAnimation>
     zController =
         AnimationController(vsync: this, duration: const Duration(seconds: 20));
 
-    animator = Tween(begin: 0, end: pi / 2);
+    animator = Tween(begin: 0, end: pi * 2);
   }
 
   @override
@@ -42,6 +42,17 @@ class _StackedAnimationState extends State<StackedAnimation>
 
   @override
   Widget build(BuildContext context) {
+    xController
+      ..reset()
+      ..forward();
+
+    yController
+      ..reset()
+      ..forward();
+
+    zController
+      ..reset()
+      ..forward();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stacked animations page'),
@@ -55,8 +66,24 @@ class _StackedAnimationState extends State<StackedAnimation>
               const SizedBox(
                 height: 100,
               ),
-              Stack(
-                children: const [],
+              AnimatedBuilder(
+                animation:
+                    Listenable.merge([xController, yController, zController]),
+                builder: (context, child) {
+                  return Transform(
+                    transform: Matrix4.identity(),
+                    alignment: Alignment.center,
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          color: Colors.red,
+                        )
+                      ],
+                    ),
+                  );
+                },
               )
             ],
           ),
