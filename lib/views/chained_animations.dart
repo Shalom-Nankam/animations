@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:animations/controllers/api_controller.dart';
-import 'package:animations/views/api_call.dart';
+
 import 'package:animations/views/stacked_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

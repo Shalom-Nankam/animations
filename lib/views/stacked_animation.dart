@@ -62,6 +62,7 @@ class _StackedAnimationState extends State<StackedAnimation>
         padding: const EdgeInsets.all(16),
         child: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
                 height: 100,
@@ -71,7 +72,10 @@ class _StackedAnimationState extends State<StackedAnimation>
                     Listenable.merge([xController, yController, zController]),
                 builder: (context, child) {
                   return Transform(
-                    transform: Matrix4.identity(),
+                    transform: Matrix4.identity()
+                      ..rotateX(animator.evaluate(xController))
+                      ..rotateY(animator.evaluate(yController))
+                      ..rotateZ(animator.evaluate(zController)),
                     alignment: Alignment.center,
                     child: Stack(
                       children: [

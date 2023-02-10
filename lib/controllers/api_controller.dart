@@ -9,12 +9,10 @@ class ApiController extends GetxController {
 
   getAlbum() async {
     isCalling(true);
-    print('started');
     Response albumResponse = await apiService.getAlbums();
     Album album = Album.fromMap(albumResponse.body);
     finalAlbum = album;
     isCalling(false);
-    print('ended');
     return;
   }
 }
