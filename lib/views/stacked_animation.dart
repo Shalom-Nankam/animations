@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:animations/views/spring_animation1.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 class StackedAnimation extends StatefulWidget {
@@ -137,6 +139,15 @@ class _StackedAnimationState extends State<StackedAnimation>
                   },
                 ),
               ),
+              const SizedBox(
+                height: 200,
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  Get.to(() => const SpringAnimation());
+                },
+                child: const Text('Next Page'),
+              )
             ],
           ),
         ),

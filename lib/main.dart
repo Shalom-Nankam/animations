@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animations/views/chained_animations.dart';
+import 'package:animations/views/hero.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,9 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'Material App',
-      home: Home(),
+      home: const HeroPage(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
     );
   }
