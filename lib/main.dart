@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:animations/views/animated_prompt.dart';
 import 'package:animations/views/chained_animations.dart';
-import 'package:animations/views/hero.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Material App',
-      home: const HeroPage(),
+      home: const PromptPage(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
